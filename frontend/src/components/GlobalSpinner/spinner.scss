@@ -1,0 +1,17 @@
+.spinnerLg {
+  width: 50px !important;
+  height: 50px !important;
+  color: var(--color-dirtBrown);
+}
+
+.modal-spinner {
+  .modal-content {
+    border: none !important;
+    background-color: transparent;
+    align-items: center;
+  }
+}
+.spinnerBackdrop {
+  background-color: transparent !important;
+  z-index: 1055 !important;
+}

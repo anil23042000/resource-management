@@ -1,0 +1,48 @@
+
+  
+  .accionLogo {
+    width: 250px;
+  }
+  
+  .loginForm {
+    max-width: 500px;
+    width: 100%;
+    padding: 3%;
+    box-sizing: border-box;
+    background-color: var(--color-white);
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 1px rgb(170, 168, 168);
+    margin: 0 auto;
+    margin-top: 20%;
+    text-align: center;
+  }
+  
+  .loginbutton {
+    border: 1px solid transparent !important;
+    width: 120px;
+    background: #007ad9;
+    border-radius: 10px;
+    color: var(--color-white);
+    margin-top: 15px;
+    cursor: pointer;
+    display: contents !important;
+  }
+  .loginbutton span {
+    background: #007ad9;
+    border: 1px solid transparent !important;
+    color: var(--color-white);
+    border-radius: 10px;
+    padding-left: 10px !important;
+  }
+  .loginbutton svg {
+    display: none;
+  }
+  .persaleLogo {
+    width: 50px;
+    height: 50px;
+  }
+  .persaletext {
+    color: #436eae;
+    font-weight: bold;
+  }
+  
