@@ -4,6 +4,25 @@
     width: 250px;
   }
   
+
+  
+
+  body {
+    font-family: sans-serif;
+    height: 100vh;
+    background-image: linear-gradient(
+        to right top,
+        rgba(0, 0, 0, 0.815),
+        rgba(29, 27, 27, 0.692)
+      ),
+      url("https://intranet.accionlabs.com/presales/assets/images/persale.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
   .loginForm {
     max-width: 500px;
     width: 100%;
@@ -37,7 +56,7 @@
   .loginbutton svg {
     display: none;
   }
-  .persaleLogo {
+  .resocreLogo {
     width: 50px;
     height: 50px;
   }

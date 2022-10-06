@@ -7,11 +7,11 @@
 .modal-spinner {
   .modal-content {
     border: none !important;
-    background-color: transparent;
+    background-color: var(--color-transparent);
     align-items: center;
   }
 }
 .spinnerBackdrop {
-  background-color: transparent !important;
+  background-color: var(--color-transparent) !important;
   z-index: 1055 !important;
 }

@@ -3,27 +3,41 @@ import "./login.scss";
 import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import { startSpinner, stopSpinner } from "../../actions/Loader";
+import { toast } from "react-toastify";
 
 import ConfigSettings from "../../config/appConfig";
 const clientId = ConfigSettings.clientId;
 
 const Login = (props) => {
   const onSuccess = (res) => {
-    props.onStartSpinner();
     let userDetails = res.profileObj;
-    console.log(userDetails);
+    if (userDetails && userDetails.email.includes("accionlabs.com")) {
+      console.log(userDetails.email);
+    } else if (userDetails && !userDetails.email.includes("accionlabs.com")) {
+      toast.error(
+        "You do not have permission to login. please contact your administrator"
+      );
+    }
+    props.onStopSpinner();
   };
 
   return (
     <div className="app">
       <div className="loginForm">
-        <div className="accionLogo">accionLogo</div>
+        <div >
+          <img src="images/accionlabs-icon.png" className="accionLogo"/>
+        </div>
         <div className="persaletext">
-          <div className="persaleLogo">logo</div> Resource Management
+        <img src="images/resource-management.png" className="resocreLogo"/>
+        {" "}
+           Resource Management
         </div>
         <GoogleLogin
           clientId={clientId}
-          onSuccess={onSuccess}
+          onSuccess={(res) => {
+            props.onStartSpinner();
+            onSuccess(res);
+          }}
           buttonText="Login With Gmail"
           className="loginbutton"
         />
