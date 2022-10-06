@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      background-color: rgb(165, 247, 240);
+
+    }
+
+    .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    * {
+      -webkit-transition-property: all;
+      -webkit-transition-duration: .2s;
+      -moz-transition-timing-function: cubic-bezier(100, 50, 21, 6);
+      -moz-transition-property: all;
+      -moz-transition-timing-function: cubic-bezier(100, 50, 21, 6);
+    }
+
+    .btn {
+      color: rgb(248, 239, 239);
+
+      padding: 10px 20px;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .btn:hover {
+      border: none;
+      background: rgba(138, 247, 239, 0.623);
+      background: #8ef3df;
+      padding: 20px 20px;
+      color: #1b1b1b;
+    }
+  </style>
+
+
+  <script>
+    function myFunction() {
+      var tableStr, tr, td;
+      var table = document.getElementById("mytable");
+      var input = document.getElementById("myInput");
+      var filter = input.value.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      for (var i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <nav class="navbar-expand-lg navbar-dark bg-dark" id="mynav">
+    <h2 style="color: white;">Accionlabs</h2>
+    <a href="/api"><button class="btn btn-primary ">Home</button></a>
+    <div class="dropdown">
+      <a id="av" href="/api/listproject"><button class="btn dropbtn">Projects</button></a>
+    </div>
+    <div class="dropdown">
+      <a id="av" href="/api/listemployee"><button class="btn dropbtn">Employees</button></a>
+    </div>
+    <div class="dropdown">
+      <a id="av" href="/api/listresource"><button class="btn dropbtn">Project Resource</button></a>
+    </div>
+    <div class="dropdown">
+      <a id="av" href="/api/listfile"><button class="btn dropbtn">Monthly Bill</button></a>
+    </div>
+  </nav>
+
+  <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card rounded-3">
+            <div class="card-body p-4 p-md-5">
+              <form class="px-md-2">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">First Name</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="first name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Last Name</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="Last Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">employee_id</label>
+                    <input type="text" class="form-control" id="employee_id" name="employee_id"
+                      placeholder="employee_id">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">employee_role</label>
+                    <input type="text" class="form-control" id="employee_role" name="employee_role"
+                      placeholder="employee_role">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">employee_phone</label>
+                    <input type="email" class="form-control" id="employee_phone" name="employee_phone"
+                      placeholder="employee_phone">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">employee_dob</label>
+                    <input type="date" class="form-control" id="employee_dob" name="employee_dob"
+                      placeholder="dd/mm/yyyy">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">current_org_experience</label>
+                    <input type="text" class="form-control" id="current_org_experience" name="current_org_experience">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">previous_org_experience</label>
+                    <input type="text" class="form-control" id="previous_org_experience" name="previous_org_experience">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">current_ctc</label>
+                    <input type="text" class="form-control" id="current_ctc" name="current_ctc">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">primary_skills</label>
+                    <input type="text" class="form-control" id="primary_skills" name="primary_skills">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">secondary_skills</label>
+                    <input type="text" class="form-control" id="secondary_skills" name="secondary_skills">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">status</label>
+                    <input type="text" class="form-control" id="status" name="status">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">reporting_manager</label>
+                    <input type="text" class="form-control" id="reporting_manager" name="reporting_manager">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
