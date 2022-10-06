@@ -35,12 +35,12 @@ router.get("/", controller.getData);
 
 //rendering for inserting employee page
 router.get("/employee", (req, res) => {
-    res.render("uploadfile/addemployee")
+    res.render("addemployee")
 });
 //rendering for inserting for project 
 router.get("/project", (req, res) => {
-    res.render("uploadfile/addproject")
-    //res.render("uploadfile/addproject");
+    res.render("addproject")
+    //res.render("addproject");
 });
 //rendering for uploading new file
 router.get("/addbill",controller.file)

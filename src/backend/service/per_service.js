@@ -97,26 +97,26 @@ async function insertFile(req, res) {
 //finding all projects and displaying
 async function listallProjects(req, res) {
     const docs = await Projects.find().lean();
-    res.render("uploadfile/listprojects", { list: docs })
+    res.render("listprojects", { list: docs })
 }
 
 //finding all Employees and displaying
 async function listallEmployee(req, res) {
     const docs = await Employee.find().lean();
-    res.render("uploadfile/listemployees", { list: docs })
+    res.render("listemployees", { list: docs })
 }
 
 //finding all Resources and displaying
 async function listallResource(req, res) {
     const resource = await ProjectResource.find().lean();
-    res.render("uploadfile/listresource", { list: resource })
+    res.render("listresource", { list: resource })
 }
 
 
 //finding all file and displaying
 async function listallFile(req, res) {
     const file = await File.find().lean();
-    res.render("uploadfile/listfile", { list: file })
+    res.render("listfile", { list: file })
 }
 
 
@@ -131,7 +131,7 @@ async function updateByempId(req, res) {
         if (!err) { res.redirect("/api/listemployee"); console.log("!err") }
         else {
             console.log("err")
-            res.render("uploadfile/updateemp", {
+            res.render("updateemp", {
                 Employee: req.body
             });
         }
@@ -149,7 +149,7 @@ async function updateByproId(req, res) {
             res.redirect('/api/listproject');
         }
         else {
-            res.render("uploadfile/updatepro", {
+            res.render("updatepro", {
                 viewTitle: 'Update Project',
                 user: req.body
             });
@@ -167,7 +167,7 @@ async function updateByresId(req, res) {
             res.redirect('/api/listresource');
         }
         else {
-            res.render("uploadfile/updatepro", {
+            res.render("updatepro", {
                 viewTitle: 'Update Project',
                 user: req.body
             });
@@ -178,7 +178,7 @@ async function updateByresId(req, res) {
 //finding single Employee and rendering for update
 async function getOneEmp(req, res) {
     const employee = await Employee.findById(req.params.id).lean();
-    res.render("uploadfile/updateemp",
+    res.render("updateemp",
         { Employee: employee }
     );
 
@@ -187,7 +187,7 @@ async function getOneEmp(req, res) {
 //finding single Project and rendering for update
 async function getOnePro(req, res) {
     const project = await Projects.findById(req.params.id).lean();
-    res.render("uploadfile/updatepro",
+    res.render("updatepro",
         { Project: project }
     );
 
@@ -196,7 +196,7 @@ async function getOnePro(req, res) {
 //finding single Resource and rendering for update
 async function getOneReso(req, res) {
     const project = await ProjectResource.findById(req.params.id).lean();
-    res.render("uploadfile/updatereso",
+    res.render("updatereso",
         { Project: project }
     );
 
@@ -243,7 +243,7 @@ async function deleteByresoId(req, res) {
 async function addtoproject(req, res) {
     const project = await Projects.find().lean();
     const employee = await Employee.find().lean();
-    res.render("uploadfile/resource", {
+    res.render("resource", {
         project: project,
         employee: employee
     })
@@ -253,7 +253,7 @@ async function addtoproject(req, res) {
 //here finding employees id and  passing ID's  for inserting resource
 async function addfile(req, res) {
     const employee = await Employee.find().lean();
-    res.render("uploadfile/addbill", {
+    res.render("addbill", {
         employee: employee
     })
 }
@@ -272,7 +272,7 @@ async function readOneFile(req, res) {
     //here reading data after find out 
     xlsxFile(file.filePath).then((file) => {
         console.log(file)
-        res.render('uploadFile/readfile', { list: file });
+        res.render('readfile', { list: file });
     })
 }
 
@@ -281,7 +281,7 @@ async function giveMoreInfo(req, res) {
     const details = await ProjectResource.find({ "projectID": req.params.id }).lean();
     console.log(details)
 
-    res.render("uploadfile/moredetails", { list: details });
+    res.render("moredetails", { list: details });
 }
 
 
@@ -322,7 +322,7 @@ async function unlinkFile(id) {
 async function getOneFile(req, res) {
     const fileinfo = await File.findById(req.params.id).lean();
     console.log(fileinfo.employeeId)
-    res.render("uploadfile/updatefile",
+    res.render("updatefile",
         { File: fileinfo }   
     );
     //here unlinking the file bcoz we will upload new updated file 
@@ -343,7 +343,7 @@ async function replaceFile(req, res) {
     File.findOneAndUpdate({ _id: req.body._id }, fileInfo, { new: true }, (err, doc) => {
         if (!err) { res.redirect('/api/listfile'); }
         else {
-            res.render("uploadfile/addbill", {
+            res.render("addbill", {
                 viewTitle: 'Update User',
                 user: req.body
             });

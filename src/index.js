@@ -23,7 +23,7 @@ app.engine(
   exphbs.engine({
     extname: "hbs",
     defaultLayout: false,
-    layoutsDir: __dirname + "/frontend/uploadfile/",
+    layoutsDir: __dirname + "/frontend/",
   })
 );
 app.set("view engine", "hbs");

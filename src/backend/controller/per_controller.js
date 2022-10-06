@@ -17,7 +17,7 @@ const service = require('../service/per_service')
 
 //rendering to hbs file
 async function getData(req, res) {
-    res.render("uploadFile/menu", {
+    res.render("menu", {
         viewTitle: "Insert Users"
     });
 }
