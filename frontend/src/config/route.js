@@ -6,15 +6,12 @@ import { connect } from "react-redux";
 //import { logOut } from "../actions/User";
 
 const RouteConfig = (props) => {
-  const { isLogin, loginStatus, onlogOut } = props;
+  const { isLogin, onlogOut } = props;
 
   useEffect(() => {
     if (!isLogin) {
-      if (loginStatus) {
-        //onlogOut();
-      }
     }
-  }, [isLogin, loginStatus, onlogOut]);
+  }, [isLogin, onlogOut]);
 
   return (
     <>
@@ -40,14 +37,10 @@ const RouteConfig = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLogin:
-    sessionStorage.getItem("login") && localStorage.getItem("login")
-      ? true
-      : false,
-  loginStatus: state?.userInfo?.loginStatus ?? false,
+  isLogin: state?.userInfo?.loginStatus ?? false,
 });
 
 const mapDispatchToProps = (dispatch) => ({
- // onlogOut: () => dispatch(logOut()),
+  // onlogOut: () => dispatch(logOut()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(RouteConfig);

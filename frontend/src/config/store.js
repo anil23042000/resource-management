@@ -30,7 +30,7 @@ const persistConfig = {
   key: "root",
   storage,
   transforms: [encryptor],
-  whitelist: [''],
+  whitelist: ['userInfo'],
 };
 
 const initialState = {};

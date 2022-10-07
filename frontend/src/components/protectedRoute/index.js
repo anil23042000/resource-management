@@ -15,7 +15,7 @@ const PrivateRoute = ({ component: Component, name, isLogin, ...rest }) => (
             </>
           );
         } else {
-          return <Redirect to="/accounts" />;
+          return <Redirect to="/projects" />;
         }
       } else {
         if (name !== "Login" && !rest.isPublic) {
