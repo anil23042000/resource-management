@@ -57,7 +57,7 @@ const MonthlybillList = (props) => {
 
 
   const postForm = async (data) => {
-    console.log(data, "--");
+    console.log(data, "--hi");
     const response = await postfile(data)
     console.log(response.data);
     if (response.data) {
@@ -73,10 +73,11 @@ const MonthlybillList = (props) => {
   }
 
   const updateFile = async (data, id) => {
-    console.log(data, "--");
+    console.log(data, "--hi");
+    console.log(id," ho")
     const response = await updatefile(id, data)
     console.log(response.data);
-    if (response.data) {
+    if (response) {
       // setData(response.data)
       loadFiles();
       props.history.push("/monthlybill");
@@ -176,6 +177,7 @@ const MonthlybillList = (props) => {
       deleteData={(id) => { deleteFile(id) }}
     />
     <ReuseModal
+      titel="Update Bill"
       show={shows}
       data={data}
       closeModal={closeModal}

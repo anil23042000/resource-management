@@ -221,7 +221,7 @@ async function updateByresId(req, res) {
             console.log(doc)
         }
         else {
-            console.log(err)
+            throw err
         }
     });
 }
@@ -377,30 +377,34 @@ async function getOneFile(req, res) {
     console.log(fileinfo.employeeId)
     res.json(fileinfo);
     //here unlinking the file bcoz we will upload new updated file 
-    //unlinkFile(req.params.id);
+    unlinkFile(req.params.id);
 }
 
 
 // here updating or replacing the project info and file
 async function replaceFile(req, res) {
     //collecting info for updating 
+    console.log(req.body);
+    console.log(req.params.id)
+    const name = req.body.employeeName;
+    const first_name = name.split(" ");
+
+    const employee = await Employee.findOne({ "first_name": first_name }).lean();
+    console.log(employee)
     const fileInfo = {
         filePath: req.file.path,
         fileName: req.file.filename,
-        employeeId: req.body.employeeId
+        employeeId: employee.employee_id
     }
+    console.log(fileInfo)
 
     //updating old file and info to new info and file
-    const response = File.findOneAndUpdate({ _id: req.body._id }, fileInfo, { new: true }, (err, doc) => {
+    File.findOneAndUpdate({ _id: req.params.id }, fileInfo, { new: true }, (err, doc) => {
         if (!err) { console.log(doc) }
         else {
-            console.log(err);
+            console.log("hi " + err);
         }
     });
-
-    res.json(response);
-
-
 }
 
 

@@ -17,13 +17,11 @@ const { table } = require("console");
 const storageEngin = multer.diskStorage({
     //giving destination for strong file
     destination: function (req, file, callback) {
-        console.log("hi")
         callback(null, "./backend/uploads/")
     },
 
     //giving filename
-    filename: function (req, file, callback) {
-        console.log("hello")
+    filename: function (req, file, callback) { 
         console.log(file.originalname)
         callback(null, file.originalname)
     }
@@ -53,7 +51,7 @@ router.get("/resource", controller.projectsreso);
 router.post("/postemployee", controller.uploadEmployee);
 router.post("/postproject", controller.uploadProject);
 router.post("/postresource", controller.uploadResource);
-router.post("/postfile",upload, controller.uploadBill);
+router.post("/postfile", upload, controller.uploadBill);
 
 //list all data from each table from database
 router.get("/listproject", controller.listProjects)
@@ -70,12 +68,15 @@ router.get("/getresource/:id", controller.getResource)
 router.put("/updateproject/:id", controller.updateProject);
 router.put("/updateemployee/:id", controller.updateEmployee);
 router.put("/updateresource/:id", controller.updateResource);
+router.put("/updatefile/:id", upload, controller.updateOneFile);
+
 
 //deleting  
 router.delete("/deletepro/:id", controller.deleteoneProject);
 router.delete("/deleteemp/:id", controller.deleteoneEmployee);
 router.delete("/deletereso/:id", controller.deleteoneResource);
-
+//routing get method for deleting single fileinfo
+router.delete("/filedelete/:id", controller.deletesingle);
 
 //routing get method for reading one file 
 router.get("/fileread/:id", controller.readData);
@@ -84,17 +85,11 @@ router.get("/fileread/:id", controller.readData);
 router.get("/details/:id", controller.moreDetails);
 
 
-//routing get method for deleting single fileinfo
-router.delete("/filedelete/:id", controller.deletesingle);
-
 //routing get method for getting one file for updateing
 router.get("/fileupdate/:id", controller.updateFile);
 
 
-//routing post method for updating fileinfo and storing new file to folder 
-router.put("/updatefile",
-    function (req, res) {
-        upload(req, res)
-    }, controller.updateOneFile);
+
+
 
 module.exports = router;

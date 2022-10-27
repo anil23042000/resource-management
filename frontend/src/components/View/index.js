@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import moment from "moment";
-
+import "./style.scss";
 const ReuseView = (props) => {
     console.log(props.data);
     console.log(props.shows)
@@ -15,6 +15,17 @@ const ReuseView = (props) => {
         } else {
             return null
         }
+    }
+    const getCaps = (str) => {
+        // Split the string at all space characters
+        console.log(str)
+        return str.split(' ')
+            // get rid of any extra spaces using trim
+            .map(a => a.trim())
+            // Convert first char to upper case for each word
+            .map(a => a[0].toUpperCase() + a.substring(1))
+            // Join all the strings back together
+            .join(" ")
     }
 
     return (
@@ -30,10 +41,10 @@ const ReuseView = (props) => {
                             <>
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <label>{label}</label> 
+                                        <label>{label}</label>
                                     </div>
-                                    <div className="col-md-6">
-                                       : <strong>{label === "Start Date" || label === "End Date" ?
+                                    <div className="col-md-6 strong">
+                                        :<strong >{label === "Start Date" || label === "End Date" ?
                                             <>{FormateDate(data[name])}</> :
                                             <>
                                                 {data[name]}</>

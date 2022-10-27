@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 const ReuseUpdateForm = (props) => {
     const { formArr, inputvalue, updateData } = props;
     const [file, setFile] = useState({ preview: '', data: '' })
+    console.log(file)
 
     console.log(inputvalue)
     console.log(formArr);
@@ -14,8 +15,13 @@ const ReuseUpdateForm = (props) => {
     // console.log(inputvalue._id)
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         const formData = new FormData(event.currentTarget);
+        if (file) {
+            formData.set('file', file.data);
+        }
         console.log(formData)
+        console.log(formData.data)
         updateData(formData, inputvalue._id);
     };
     const handleFileChange = (e) => {
@@ -29,22 +35,28 @@ const ReuseUpdateForm = (props) => {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                {formArr.map(({ name, type, label }) => (       
+
+                {formArr.map(({ name, type, label }) => (
                     <>
-                        <Form.Label>{label}</Form.Label>
-                        <FormControl
-                            type={type}
-                            name={name}
-                            id={name}
-                            defaultValue={inputvalue[name]}
-                            onChange={handleFileChange}
-                        />
+                        <div className="input-group">
+                            <input
+                                type={type}
+                                name={name}
+                                id={name}
+                                defaultValue={inputvalue[name]}
+                                onChange={handleFileChange}
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>{label}</label>
+                        </div>
                     </>
                 ))}
-            <Button variant="primary" type="submit">
-                Update
-            </Button>
-        </Form>
+                <Button className="sbutton" variant="primary" type="submit">
+                    Update
+                </Button>
+
+            </Form>
         </>
     )
 }

@@ -62,7 +62,7 @@ const ProjectResourceList = (props) => {
     console.log(response.data);
     let data = [];
     for (let i = 0; i < response.data.length; i++) {
-      data.push(response.data[i].first_name+" "+response.data[i].last_name)
+      data.push(response.data[i].first_name + " " + response.data[i].last_name)
 
     };
     console.log(data)
@@ -123,7 +123,7 @@ const ProjectResourceList = (props) => {
     console.log(data, "--");
     let uploadData = {};
     for (let i of data) {
-        uploadData[i[0]] = i[1]
+      uploadData[i[0]] = i[1]
     }
     const response = await updateresource(id, uploadData)
     console.log(response.data);
@@ -188,15 +188,15 @@ const ProjectResourceList = (props) => {
     { header: "actions", field: "Actions" }
   ];
 
-  const role =[
+  const role = [
     "Full Stack",
-        "FrontEnd","BackEnd"   
+    "FrontEnd", "BackEnd"
   ]
 
   const formArr = [
     { label: "Project Name", name: "projectName", data: { value: prodata } },
     { label: "Employee Name", name: "employeeName", data: { value } },
-    { label: "Role", name: "role", type: "text", data: { value:role } },
+    { label: "Role", name: "role", type: "text", data: { value: role } },
     { label: "Status", name: "status", type: "text" },
     { label: "Start Date", name: "projectStartDate", type: "date" },
     { label: "End Date", name: "projectEndDate", type: "date" },
@@ -222,6 +222,7 @@ const ProjectResourceList = (props) => {
         getOneDetails={(id) => { getOneProjectDetails(id) }}
         deleteData={(id) => { deleteData(id) }} />
       <ReuseModal
+        titel="Update Resource"
         show={show}
         closeModal={closeModal}
         formArr={formArr}

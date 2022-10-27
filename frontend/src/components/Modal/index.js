@@ -11,8 +11,8 @@ const ReuseModal = (props) => {
     console.log("hi" + props.show)
     return (
         <>
-            <Modal show={props.show} className="modal">
-                <div className="form-container">
+            <Modal show={props.show} className="modalContent">
+                <div  className="form-container">
                     <Modal.Header closeButton onClick={props.closeModal}>
                         <Modal.Title>{props.titel}</Modal.Title>
                     </Modal.Header>

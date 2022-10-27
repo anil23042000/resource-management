@@ -191,7 +191,9 @@ const ProjectsList = (props) => {
       deleteData={(id) => { deleteData(id) }}
     />
 
-    <ReuseModal show={show}
+    <ReuseModal
+    titel="Update Project"
+     show={show}
       data={data}
       closeModal={closeModal}
       formArr={formArr}

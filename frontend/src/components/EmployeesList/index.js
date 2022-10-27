@@ -188,7 +188,7 @@ const EmployeesList = (props) => {
         deleteData={(id) => { deleteData(id) }}
         getOneDetails={(id) => { getOneEmployeeDetails(id) }} />
 
-      <ReuseModal show={show} closeModal={closeModal} formArr={formArr} inputvalue={onedata}
+      <ReuseModal titel="Update Employee" show={show} closeModal={closeModal} formArr={formArr} inputvalue={onedata}
         updateData={(data, id) => { updateData(data, id) }} />
       <ReuseView titel="Employee Details" shows={shows} data={onedata} closeView={closeView} formArr={formViewArr} />
 

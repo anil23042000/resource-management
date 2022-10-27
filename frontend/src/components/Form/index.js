@@ -35,21 +35,23 @@ const ReuseForm = (props) => {
                 {formArr.map(({ name, type, label, data }) => {
                     console.log(data)
                     if (data) return (
-                        <> <div className="input-group">
-                            <select name={name} id={name}>
-                                <option>{label}</option>
-                                {data.value.map((eachData) => {
-                                    return (
-                                        <>
-                                            <option name={name} id={name}>{eachData}</option>
-                                        </>
-                                    )
-                                })}
+                        <>
+                            <div className="input-group">
+                                <select name={name} id={name}>
+                                    <option>{label}</option>
+                                    {data.value.map((eachData) => {
+                                        return (
+                                            <>
+                                                <option name={name} id={name}>{eachData}</option>
+                                            </>
+                                        )
+                                    })}
+                                </select>
+                                <br />
 
-                            </select><br />
 
 
-                        </div>
+                            </div>
                         </>)
                     return <>
 
@@ -60,11 +62,10 @@ const ReuseForm = (props) => {
                                 name={name}
                                 id={name}
                                 onChange={handleFileChange}
-                                
+
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
-
                             <label>{label}</label>
                         </div>
 
