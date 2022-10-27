@@ -13,6 +13,10 @@ var fileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    employeeName: {
+        type: String,
+        required: true
+    },
     dateAndTime: {
         type: String,
         default: Date

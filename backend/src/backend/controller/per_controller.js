@@ -13,7 +13,21 @@ const Project = mongoose.model('Project');
 const service = require('../service/per_service')
 
 //file  controller 
+//creating storage 
+const storageEngin = multer.diskStorage({
+    //giving destination for strong file
+    destination: function (request, file, callback) {
+        console.log("hi")
+        callback(null, "./uploads/")
+    },
 
+    //giving filename
+    filename: function (request, file, callback) {
+        callback(null, file.originalname)
+    }
+});
+
+const upload = multer({ storage: storageEngin })
 
 //rendering to hbs file
 async function getData(req, res) {
@@ -24,6 +38,7 @@ async function getData(req, res) {
 
 //posting employee data 
 async function uploadEmployee(req, res, next) {
+    console.log(req.body);
     service.insertEmployee(req, res);
 }
 
@@ -34,11 +49,13 @@ async function uploadProject(req, res, next) {
 
 //posting Resource data
 async function uploadResource(req, res, next) {
+
     service.insertResource(req, res);
 }
 
 //posting file 
-async function uploadBill(req, res, next) {
+async function uploadBill(req, res,next) {
+    console.log(req.body)
     service.insertFile(req, res);
 }
 
@@ -100,7 +117,6 @@ async function updateResource(req, res, next) {
 
 //finding data for update
 async function getEmployee(req, res, next) {
-    console.log("updateemp")
     service.getOneEmp(req, res);
 }
 //finding data for update
@@ -121,8 +137,8 @@ async function projectsreso(req, res, next) {
 }
 
 
-async function file(req,res,next){
-    service.addfile(req,res);
+async function file(req, res, next) {
+    service.addfile(req, res);
 }
 
 //reading one file
@@ -131,7 +147,7 @@ async function readData(req, res, next) {
 }
 
 //more
-async function moreDetails(req,res,next){
+async function moreDetails(req, res, next) {
     service.giveMoreInfo(req, res);
 }
 
@@ -154,7 +170,7 @@ async function updateOneFile(req, res, next) {
 }
 
 module.exports = {
-    getResource, updateProject,uploadBill,listFile,file,readData,moreDetails,deletesingle,updateFile,updateOneFile,
+    getResource, updateProject, uploadBill, listFile, file, readData, moreDetails, deletesingle, updateFile, updateOneFile,
     deleteoneResource,
     getData,
     getProject,

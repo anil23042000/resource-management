@@ -6,6 +6,8 @@ const path = require("path");
 const routes = require("./backend/routes/per_route");
 require("./backend/config/per_db");
 
+const cors = require('cors');
+
 //const exphbs1 = require('express-handlebars');
 const app = express();
 app.use(
@@ -27,6 +29,10 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+
+app.use(cors({
+  origin: "*"
+}))
 
 app.use("/api", routes);
 app.listen(4002, () => {

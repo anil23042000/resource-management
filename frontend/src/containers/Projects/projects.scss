@@ -1,4 +1,12 @@
-.projectContainer{
+.projectContainer {
     background-color: var(--color-white);
     height: 100vh;
+}
+
+.leftConatiner {
+    position: fixed;
+}
+
+.rigthConatiner {
+    margin-left: 18%;
 }

@@ -16,80 +16,141 @@ const fileSchema = require('../model/file_schema');
 const mongoose = require('mongoose');
 const { Duplex } = require("stream");
 const { projectsreso } = require("../controller/per_controller");
+const { json } = require("body-parser");
+const { stringify } = require("querystring");
 const Projects = mongoose.model('Project');
 const Employee = mongoose.model('Employee');
 const ProjectResource = mongoose.model('Project_Resource');
 const File = mongoose.model('File');
 
+function randomEmpString() {
+    //define a variable consisting alphabets in small and capital letter
+    var number = "123456789";
+    //specify the length for the new string
+    var lenString = 5;
+    var randomstring = '';
+
+    //loop to select a new character in each iteration
+    for (var i = 0; i < lenString; i++) {
+        var rnum = Math.floor(Math.random() * number.length);
+        randomstring += number.substring(rnum, rnum + 1);
+    }
+
+    return "EMP" + randomstring;
+}
+
+function randomProString() {
+    //define a variable consisting alphabets in small and capital letter
+    var number = "123456789";
+    //specify the length for the new string
+    var lenString = 5;
+    var randomstring = '';
+
+    //loop to select a new character in each iteration
+    for (var i = 0; i < lenString; i++) {
+        var rnum = Math.floor(Math.random() * number.length);
+        randomstring += number.substring(rnum, rnum + 1);
+    }
+
+    return "PRO" + randomstring;
+}
 
 // inserting Employee details
 async function insertEmployee(req, res) {
     console.log(req.body)
     const employee = new Employee();
-    employee.name = req.body.name;
-    employee.ctc = req.body.ctc;
+    employee.first_name = req.body.first_name;
+    employee.last_name = req.body.last_name;
+    employee.email = req.body.email
+    employee.employee_id = randomEmpString();
+    employee.employee_role = req.body.employee_role
+    employee.employee_phone = req.body.employee_phone
+    employee.employee_dob = req.body.employee_dob
+    employee.current_org_experience = req.body.current_org_experience
+    employee.previous_org_experience = req.body.previous_org_experience
+    employee.current_ctc = req.body.current_ctc
+    employee.primary_skills = req.body.primary_skills
+    employee.secondary_skills = req.body.secondary_skills
+    employee.status = req.body.status
+    employee.reporting_manager = req.body.reporting_manager
     employee.save((err, data) => {
         if (err) throw err
         console.log(data);
     });
-    res.redirect("/api/listemployee")
 }
-
 //inserting Project details
 async function insertProject(req, res) {
     const project = new Projects();
     console.log(req.body)
-    console.log(req.body.sdate)
-    project.projectName = req.body.pname;
-    project.clientName = req.body.cname;
-    project.projectStartDate = req.body.sdate;
-    project.projectEndDate = req.body.edate;
+    project.project_name = req.body.project_name
+    project.project_id = randomProString();
+    project.client_name = req.body.client_name
+    project.projectStartDate = req.body.projectStartDate
+    project.projectEndDate = req.body.projectEndDate
+    project.status = req.body.status
+    project.delivery_manager = req.body.delivery_manager
+    project.engagement_director = req.body.engagement_director
+    project.delivery_director = req.body.delivery_director
+    project.project_manager = req.body.project_manager
+    project.bu = req.body.bu
+    project.reasonfor_close = req.body.reasonfor_close
+    project.project_type = req.body.project_type
+    project.project_budget = req.body.project_budget
     project.save((err, data) => {
         if (err) throw err
         console.log(data);
     })
-    res.redirect("/api/listproject");
 }
 
 //inserting Resource details
 async function insertResource(req, res) {
-
-    console.log(req.body);
+    // console.log(req.body.project_id);
+    console.log(req.body)
+    const name = req.body.employeeName;
+    const first_name = name.split(" ");
     const projectreso = new ProjectResource();
-    const project = await Projects.findById(req.body.pname).lean();
+    const project = await Projects.findOne({ "project_name": req.body.projectName }).lean();
     console.log(project)
-    const employee = await Employee.findById(req.body.ename).lean();
-    projectreso.projectName = project.projectName;
-    projectreso.employeeName = employee.name;
-    projectreso.projectID = req.body.pname;
-    projectreso.employeeId = req.body.ename;
-
-    projectreso.projectStartDate = req.body.sdate;
-    projectreso.projectEndDate = req.body.edate;
+    console.log(project.project_name);
+    const employee = await Employee.findOne({ "first_name": first_name }).lean();
+    projectreso.projectName = req.body.projectName;
+    projectreso.employeeName = req.body.employeeName;
+    projectreso.projectID = project.project_id;
+    projectreso.employeeId = employee.employee_id;
+    projectreso.status = req.body.status
+    projectreso.projectStartDate = req.body.projectStartDate;
+    projectreso.projectEndDate = req.body.projectEndDate;
     projectreso.role = req.body.role;
-    projectreso.reportingManager = req.body.manager;
+    if (req.body.billable == "yes") {
+        projectreso.billable = true
+    } else {
+        projectreso.billable = false
+    }
 
     projectreso.save((err, data) => {
         if (err) throw err
         console.log(data)
     })
-    res.redirect("/api/listresource")
 }
 
 //inserting file 
 async function insertFile(req, res) {
+    const name = req.body.employeeName;
+    const first_name = name.split(" ");
 
     const file = new File();
-    console.log(req.body)
     console.log(req.file)
+    const employee = await Employee.findOne({ "first_name": first_name }).lean();
+    console.log(employee)
+    file.employeeName = req.body.employeeName;
     file.filePath = req.file.path;
     file.fileName = req.file.filename;
-    file.employeeId = req.body.ename;
+    file.employeeId = employee.employee_id;
     file.save((err, data) => {
         if (err) throw err
         console.log(data);
     })
-    res.redirect("/api/listfile");
+
 }
 
 
@@ -97,26 +158,27 @@ async function insertFile(req, res) {
 //finding all projects and displaying
 async function listallProjects(req, res) {
     const docs = await Projects.find().lean();
-    res.render("listprojects", { list: docs })
+    res.json(docs);
 }
 
 //finding all Employees and displaying
 async function listallEmployee(req, res) {
     const docs = await Employee.find().lean();
-    res.render("listemployees", { list: docs })
+    res.json(docs)
+    //res.render("listemployees", { list: docs })
 }
 
 //finding all Resources and displaying
 async function listallResource(req, res) {
     const resource = await ProjectResource.find().lean();
-    res.render("listresource", { list: resource })
+    res.json(resource);
 }
 
 
 //finding all file and displaying
 async function listallFile(req, res) {
     const file = await File.find().lean();
-    res.render("listfile", { list: file })
+    res.json(file)
 }
 
 
@@ -126,14 +188,11 @@ async function updateByempId(req, res) {
     console.log("updateByEmpid")
     console.log(req.body)
     console.log(req.body._id);
-    Employee.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+    Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         console.log(doc)
-        if (!err) { res.redirect("/api/listemployee"); console.log("!err") }
+        if (!err) { console.log("Updated Successfully") }
         else {
-            console.log("err")
-            res.render("updateemp", {
-                Employee: req.body
-            });
+            console.log("err" + err)
         }
     });
 }
@@ -143,16 +202,12 @@ async function updateByproId(req, res) {
     console.log("updateByproid")
     console.log(req.body)
     console.log(req.body._id)
-    Projects.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+    Projects.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
             console.log(doc)
-            res.redirect('/api/listproject');
         }
         else {
-            res.render("updatepro", {
-                viewTitle: 'Update Project',
-                user: req.body
-            });
+            console.log("err" + err)
         }
     });
 }
@@ -160,67 +215,63 @@ async function updateByproId(req, res) {
 async function updateByresId(req, res) {
     console.log("updated Reso")
     console.log(req.body)
-    console.log(req.body._id)
-    ProjectResource.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+    console.log(req.params.id)
+    ProjectResource.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
             console.log(doc)
-            res.redirect('/api/listresource');
         }
         else {
-            res.render("updatepro", {
-                viewTitle: 'Update Project',
-                user: req.body
-            });
+            console.log(err)
         }
     });
 }
 
 //finding single Employee and rendering for update
 async function getOneEmp(req, res) {
+    console.log(req.params.id)
     const employee = await Employee.findById(req.params.id).lean();
-    res.render("updateemp",
-        { Employee: employee }
-    );
+    res.json(employee)
 
 }
 
 //finding single Project and rendering for update
 async function getOnePro(req, res) {
+    console.log(req.body)
+    console.log(req.params.id)
     const project = await Projects.findById(req.params.id).lean();
-    res.render("updatepro",
-        { Project: project }
-    );
+    res.json(project)
 
 }
 
 //finding single Resource and rendering for update
 async function getOneReso(req, res) {
     const project = await ProjectResource.findById(req.params.id).lean();
-    res.render("updatereso",
-        { Project: project }
-    );
+    res.json(project)
 
 }
 
 
 //deleting single project
 async function deleteByproId(req, res) {
-
+    console.log(req.params.id)
     //here deleting 
     try {
         const project = await Projects.findByIdAndRemove(req.params.id);
-        if (project) res.redirect("/api/listproject");
+        if (project) console.log("Deleted!!")
     } catch (err) {
         console.log(err);
-        throw new Error(err);
     }
 }
 //deleting single Employee
 async function deleteByEmpId(req, res) {
+    console.log(req.params.id)
+    console.log(req.body)
     //here deleting 
     try {
         const project = await Employee.findByIdAndRemove(req.params.id);
-        if (project) res.redirect("/api/listemployee");
+        if (project) {
+            console.log("deleted!!")
+        }
     } catch (err) {
         console.log(err);
         throw new Error(err);
@@ -231,10 +282,9 @@ async function deleteByresoId(req, res) {
     //here deleting 
     try {
         const project = await ProjectResource.findByIdAndRemove(req.params.id);
-        if (project) res.redirect("/api/listres");
+        if (project) console.log("deleted!!")
     } catch (err) {
         console.log(err);
-        throw new Error(err);
     }
 }
 
@@ -272,7 +322,10 @@ async function readOneFile(req, res) {
     //here reading data after find out 
     xlsxFile(file.filePath).then((file) => {
         console.log(file)
-        res.render('readfile', { list: file });
+
+
+        res.json(file);
+        // res.render('readfile', { list: file });
     })
 }
 
@@ -281,7 +334,7 @@ async function giveMoreInfo(req, res) {
     const details = await ProjectResource.find({ "projectID": req.params.id }).lean();
     console.log(details)
 
-    res.render("moredetails", { list: details });
+    res.json(details)
 }
 
 
@@ -322,11 +375,9 @@ async function unlinkFile(id) {
 async function getOneFile(req, res) {
     const fileinfo = await File.findById(req.params.id).lean();
     console.log(fileinfo.employeeId)
-    res.render("updatefile",
-        { File: fileinfo }   
-    );
+    res.json(fileinfo);
     //here unlinking the file bcoz we will upload new updated file 
-   unlinkFile(req.params.id);
+    //unlinkFile(req.params.id);
 }
 
 
@@ -336,19 +387,18 @@ async function replaceFile(req, res) {
     const fileInfo = {
         filePath: req.file.path,
         fileName: req.file.filename,
-        employeeId:req.body.employeeId
+        employeeId: req.body.employeeId
     }
 
     //updating old file and info to new info and file
-    File.findOneAndUpdate({ _id: req.body._id }, fileInfo, { new: true }, (err, doc) => {
-        if (!err) { res.redirect('/api/listfile'); }
+    const response = File.findOneAndUpdate({ _id: req.body._id }, fileInfo, { new: true }, (err, doc) => {
+        if (!err) { console.log(doc) }
         else {
-            res.render("addbill", {
-                viewTitle: 'Update User',
-                user: req.body
-            });
+            console.log(err);
         }
     });
+
+    res.json(response);
 
 
 }
@@ -357,7 +407,7 @@ async function replaceFile(req, res) {
 // exporting all functions
 module.exports = {
     getOneReso, updateByempId, deleteByresoId, insertResource, listallResource, insertFile, listallFile, addfile, readOneFile,
-    addtoproject, giveMoreInfo,deleteByid,getOneFile,replaceFile,
+    addtoproject, giveMoreInfo, deleteByid, getOneFile, replaceFile,
     insertEmployee,
     getOnePro,
     getOneEmp,

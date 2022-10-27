@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 var project_resource_schema = new mongoose.Schema({
+    projectName : {type :String ,required:true},
+    employeeName : {type :String ,required:true},
     projectID: {type: String,required: true},
     employeeId: {type: String,required: true},
     role:{type: String,required: true},

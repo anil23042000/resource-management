@@ -43,7 +43,7 @@ const Sidebar = (props) => {
 
   return (
     <>
-      <div id="header">
+      <div id="header" >
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">

@@ -16,18 +16,20 @@ const { table } = require("console");
 //creating storage
 const storageEngin = multer.diskStorage({
     //giving destination for strong file
-    destination: function (request, file, callback) {
+    destination: function (req, file, callback) {
         console.log("hi")
-        callback(null, "./uploads/")
+        callback(null, "./backend/uploads/")
     },
 
     //giving filename
-    filename: function (request, file, callback) {
+    filename: function (req, file, callback) {
+        console.log("hello")
+        console.log(file.originalname)
         callback(null, file.originalname)
     }
 });
 
-const upload = multer({ storage: storageEngin })
+const upload = multer({ storage: storageEngin }).single('file');
 
 
 
@@ -43,7 +45,7 @@ router.get("/project", (req, res) => {
     //res.render("addproject");
 });
 //rendering for uploading new file
-router.get("/addbill",controller.file)
+//router.get("/addbill", controller.file) 
 //rendering for inserting for resource
 router.get("/resource", controller.projectsreso);
 
@@ -51,8 +53,7 @@ router.get("/resource", controller.projectsreso);
 router.post("/postemployee", controller.uploadEmployee);
 router.post("/postproject", controller.uploadProject);
 router.post("/postresource", controller.uploadResource);
-
-router.post("/postbill", upload.single("fileName"), controller.uploadBill);
+router.post("/postfile",upload, controller.uploadBill);
 
 //list all data from each table from database
 router.get("/listproject", controller.listProjects)
@@ -66,14 +67,14 @@ router.get("/getemployee/:id", controller.getEmployee);
 router.get("/getresource/:id", controller.getResource)
 
 //collecting data for updating from post method
-router.post("/updateproject", controller.updateProject);
-router.post("/updateemployee", controller.updateEmployee);
-router.post("/updateresource", controller.updateResource);
+router.put("/updateproject/:id", controller.updateProject);
+router.put("/updateemployee/:id", controller.updateEmployee);
+router.put("/updateresource/:id", controller.updateResource);
 
 //deleting  
-router.get("/deletepro/:id", controller.deleteoneProject);
-router.get("/deleteemp/:id", controller.deleteoneEmployee);
-router.get("/deletereso/:id", controller.deleteoneResource);
+router.delete("/deletepro/:id", controller.deleteoneProject);
+router.delete("/deleteemp/:id", controller.deleteoneEmployee);
+router.delete("/deletereso/:id", controller.deleteoneResource);
 
 
 //routing get method for reading one file 
@@ -84,13 +85,16 @@ router.get("/details/:id", controller.moreDetails);
 
 
 //routing get method for deleting single fileinfo
-router.get("/filedelete/:id", controller.deletesingle);
+router.delete("/filedelete/:id", controller.deletesingle);
 
 //routing get method for getting one file for updateing
 router.get("/fileupdate/:id", controller.updateFile);
 
 
 //routing post method for updating fileinfo and storing new file to folder 
-router.post("/updatefile", upload.single("fileName"), controller.updateOneFile);
+router.put("/updatefile",
+    function (req, res) {
+        upload(req, res)
+    }, controller.updateOneFile);
 
 module.exports = router;
