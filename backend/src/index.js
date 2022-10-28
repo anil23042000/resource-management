@@ -35,6 +35,6 @@ app.use(cors({
 }))
 
 app.use("/api", routes);
-app.listen(4002, () => {
-  console.log("Express server started at port : 4002");
+app.listen(3002, () => {
+  console.log("Express server started at port : 3002");
 });
