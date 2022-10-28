@@ -1,6 +1,4 @@
 /node_modules
 package-lock.json
 ./uploads
-/backend/node_modules
 /frontend/node_modules
-/backend/package-lock.json
