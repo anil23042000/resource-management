@@ -61,12 +61,11 @@ const MonthlybillList = (props) => {
     const response = await postfile(data)
     console.log(response.data);
     if (response.data) {
-      console.log("hi")
+      alert("Inserted Successfully")
       loadFiles();
       props.history.push("/monthlybill");
-
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
 
@@ -78,11 +77,11 @@ const MonthlybillList = (props) => {
     const response = await updatefile(id, data)
     console.log(response.data);
     if (response) {
-      // setData(response.data)
+      alert("Udated Successfully")
       loadFiles();
       props.history.push("/monthlybill");
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
@@ -90,12 +89,12 @@ const MonthlybillList = (props) => {
     console.log(id);
     const response = await deletefile(id);
     if (response.data) {
+      alert("Deleted Successfully")
       loadFiles();
       props.history.push("/monthlybill");
 
     } else {
-      loadFiles()
-      // setData(null)
+      alert("Error!! ")
     }
 
   }
@@ -110,7 +109,7 @@ const MonthlybillList = (props) => {
         setShows(true)
         console.log(response.data);
       } else {
-        alert("2");
+        alert("Error!! ");
         // setData(null)
       }
     }
@@ -124,7 +123,7 @@ const MonthlybillList = (props) => {
       setShow(true)
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
@@ -162,10 +161,10 @@ const MonthlybillList = (props) => {
   return (<>
     <Header name="Monthly bill List" />
     <Search titel="Add Bill"
+     search={(e) => { search(e) }}
       data={data}
       formArr={formArr}
       Header={tableheaders}
-      search={(e) => { search(e) }}
       postLink={(data) => { postForm(data) }}
     />
     <br />

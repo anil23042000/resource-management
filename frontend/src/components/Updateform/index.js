@@ -1,8 +1,7 @@
-import { React, useForm, useState } from "react";
-import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, FormLabel, InputGroup } from "react-bootstrap";
+import { React, useState } from "react";
+import { Button } from "react-bootstrap";
 
 import Form from 'react-bootstrap/Form';
-import { useHistory } from "react-router-dom";
 const ReuseUpdateForm = (props) => {
     const { formArr, inputvalue, updateData } = props;
     const [file, setFile] = useState({ preview: '', data: '' })
@@ -10,9 +9,6 @@ const ReuseUpdateForm = (props) => {
 
     console.log(inputvalue)
     console.log(formArr);
-
-
-    // console.log(inputvalue._id)
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -33,36 +29,33 @@ const ReuseUpdateForm = (props) => {
         setFile(file)
     }
     return (
-        <>
-            <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
 
-                {formArr.map(({ name, type, label }) => (
-                    <>
-                        <div className="input-group">
-                            <input
-                                type={type}
-                                name={name}
-                                id={name}
-                                defaultValue={inputvalue[name]}
-                                onChange={handleFileChange}
-                            />
-                            <span className="highlight"></span>
-                            <span className="bar"></span>
-                            <label>{label}</label>
-                        </div>
-                    </>
-                ))}
-                <Button className="sbutton" variant="primary" type="submit">
-                    Update
-                </Button>
+            {formArr.map(({ name, type, label }) => (
+                <>
+                    <div className="input-group">
+                        <input
+                            type={type}
+                            name={name}
+                            id={name}
+                            defaultValue={inputvalue[name]}
+                            onChange={handleFileChange}
+                        />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label>{label}</label>
+                    </div>
+                </>
+            ))}
+            <Button className="sbutton" variant="primary" type="submit">
+                Update
+            </Button>
 
-            </Form>
-        </>
+        </Form>
     )
 }
 
 ReuseUpdateForm.defaultProps = {
-
     formArr: [
         {
             label: "Email",
@@ -77,7 +70,6 @@ ReuseUpdateForm.defaultProps = {
             value: ""
         },
     ],
-
 };
 
 

@@ -12,16 +12,16 @@ const ReuseModal = (props) => {
     return (
         <>
             <Modal show={props.show} className="modalContent">
-                <div  className="form-container">
+                <div className="form-container">
                     <Modal.Header closeButton onClick={props.closeModal}>
                         <Modal.Title>{props.titel}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body >
 
-                        {props.inputvalue ? <ReuseUpdateForm formArr={props.formArr}
+                        {props.inputvalue ? <ReuseUpdateForm closeModal={props.closeModal} formArr={props.formArr}
                             updateData={props.updateData}
                             inputvalue={props.inputvalue} /> :
-                            <ReuseForm formArr={props.formArr} data={props.data} postLink={props.postLink} />
+                            <ReuseForm closeModal={props.closeModal} formArr={props.formArr} data={props.data} postLink={props.postLink} />
                         }
 
                     </Modal.Body>

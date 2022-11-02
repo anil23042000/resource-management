@@ -41,6 +41,10 @@ async function uploadEmployee(req, res, next) {
     console.log(req.body);
     service.insertEmployee(req, res);
 }
+async function uploaduser(req, res, next) {
+    console.log(req.body);
+    service.insertUser(req, res);
+}
 
 //posting project data
 async function uploadProject(req, res, next) {
@@ -123,6 +127,10 @@ async function getEmployee(req, res, next) {
 async function getProject(req, res, next) {
     service.getOnePro(req, res);
 }
+///
+async function getUser(req, res, next) {
+    service.find(req, res);
+}
 //finding data for update
 async function getResource(req, res, next) {
     service.getOneReso(req, res);
@@ -185,5 +193,5 @@ module.exports = {
     deleteoneProject,
     deleteoneEmployee,
     listResource,
-    uploadResource
+    uploadResource,uploaduser,getUser
 }

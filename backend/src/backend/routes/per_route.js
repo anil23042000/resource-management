@@ -17,7 +17,7 @@ const { table } = require("console");
 const storageEngin = multer.diskStorage({
     //giving destination for strong file
     destination: function (req, file, callback) {
-        callback(null, "./backend/uploads/")
+        callback(null, "./src/backend/uploads/")
     },
 
     //giving filename
@@ -49,6 +49,8 @@ router.get("/resource", controller.projectsreso);
 
 //colleteting inputs for inserting in all 3 sheets
 router.post("/postemployee", controller.uploadEmployee);
+router.post("/postuser", controller.uploaduser);
+
 router.post("/postproject", controller.uploadProject);
 router.post("/postresource", controller.uploadResource);
 router.post("/postfile", upload, controller.uploadBill);
@@ -57,7 +59,10 @@ router.post("/postfile", upload, controller.uploadBill);
 router.get("/listproject", controller.listProjects)
 router.get("/listemployee", controller.listEmployee)
 router.get("/listresource", controller.listResource);
+router.post("/find", controller.getUser);
+
 router.get("/listfile", controller.listFile);
+
 
 //finding single data for updating 
 router.get("/getproject/:id", controller.getProject)

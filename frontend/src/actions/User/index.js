@@ -32,6 +32,23 @@ export const postemployee = async (data) => {
     return err;
   }
 }
+
+export const postuser = async (data) => {
+  try {
+    const url = "/postuser";
+    return await ApiConfig.postData(url, {}, data);
+  } catch (err) {
+    return err;
+  }
+}
+export const LoginUser = async (data) => {
+  try {
+    const url = "/find";
+    return await ApiConfig.postData(url, {}, data);
+  } catch (err) {
+    return err;
+  }
+}
 export const updateemployee = async (id, data) => {
   try {
     const url = "/updateemployee/" + id;

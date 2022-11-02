@@ -2,7 +2,7 @@ import { React, useForm, useState } from "react";
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, FormLabel, InputGroup } from "react-bootstrap";
 import "./form.scss";
 import Form from 'react-bootstrap/Form';
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 const ReuseForm = (props) => {
     const { formArr, postLink, data } = props;
     const [file, setFile] = useState({ preview: '', data: '' })
@@ -18,6 +18,7 @@ const ReuseForm = (props) => {
         console.log(formData.data)
 
         postLink(formData);
+        props.closeModal()
 
     };
     const handleFileChange = (e) => {
@@ -28,6 +29,10 @@ const ReuseForm = (props) => {
         console.log(file)
         setFile(file)
     }
+    const submitData=(e)=>{
+        e.preventDefault()
+        props.history.push("/projects")
+    }
 
     return (
         <>
@@ -35,27 +40,22 @@ const ReuseForm = (props) => {
                 {formArr.map(({ name, type, label, data }) => {
                     console.log(data)
                     if (data) return (
-                        <>
-                            <div className="input-group">
-                                <select name={name} id={name}>
-                                    <option>{label}</option>
-                                    {data.value.map((eachData) => {
-                                        return (
-                                            <>
-                                                <option name={name} id={name}>{eachData}</option>
-                                            </>
-                                        )
-                                    })}
-                                </select>
-                                <br />
 
-
-
-                            </div>
-                        </>)
-                    return <>
-
-
+                        <div className="input-group">
+                            <select name={name} id={name}>
+                                <option>{label}</option>
+                                {data.value.map((eachData) => {
+                                    return (
+                                        <>
+                                            <option name={name} id={name}>{eachData}</option>
+                                        </>
+                                    )
+                                })}
+                            </select>
+                            <br />
+                        </div>
+                    )
+                    return (
                         <div className="input-group">
                             <input
                                 type={type}
@@ -68,12 +68,10 @@ const ReuseForm = (props) => {
                             <span className="bar"></span>
                             <label>{label}</label>
                         </div>
-
-
-                    </>
+                    )
                 }
                 )}
-                <Button className="sbutton" variant="primary" type="submit">
+                <Button  className="sbutton" variant="primary" type="submit">
                     Submitt
                 </Button>
             </Form>

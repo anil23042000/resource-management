@@ -21,7 +21,7 @@ const ReuseTable = (props) => {
             // get rid of any extra spaces using trim
             .map(a => a.trim())
             // Convert first char to upper case for each word
-            .map(a => a[0].toUpperCase() + a.substring(1))
+            .map(a => a[0].toUpperCase() + a.substring(1).toLowerCase())
             // Join all the strings back together
             .join(" ")
     }

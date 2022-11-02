@@ -41,6 +41,7 @@ const routeNavigators = [
     component: MonthlybillComponent,
     isPublic: false,
   }
+
 ];
 
 export default routeNavigators;

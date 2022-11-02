@@ -110,10 +110,11 @@ const ProjectResourceList = (props) => {
     console.log(response.data);
     if (response.data) {
       // setData(response.data)
+      alert("inserted ProjectResource")
       loadResourceData();
-      alert("1");
+      props.history.push('/projectResource')
     } else {
-      alert("2");
+      alert("Erro!! ");
       // setData(null)
     }
 
@@ -128,25 +129,23 @@ const ProjectResourceList = (props) => {
     const response = await updateresource(id, uploadData)
     console.log(response.data);
     if (response.data) {
-      // setData(response.data)
+      alert("Updated ProjectResource")
       loadResourceData();
-      alert("1");
+      props.history.push('/projectResource')
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
   const deleteData = async (id, view) => {
     console.log(id);
     const response = await deleteresource(id);
-    if (view) {
-
-    }
     if (response.data) {
-      //alert("deleted successfully!! ");
+      alert("deleted successfully!! ");
       loadResourceData();
+      props.history.push('/projectResource')
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
 
@@ -160,7 +159,7 @@ const ProjectResourceList = (props) => {
       setShow(true);
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
@@ -172,7 +171,7 @@ const ProjectResourceList = (props) => {
       setShows(true);
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }

@@ -2,6 +2,7 @@ const express = require("express");
 const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 const bodyparser = require('body-parser');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const path = require('path');
 var mammoth = require("mammoth");
@@ -10,6 +11,7 @@ const xlsxFile = require('read-excel-file/node');
 const projectSchema = require('../model/project_schema');
 const employeeschema = require('../model/employee_schema');
 const projectdetails = require('../model/project_resource_schema');
+const userSchema = require('../model/users')
 const fileSchema = require('../model/file_schema');
 
 
@@ -18,8 +20,10 @@ const { Duplex } = require("stream");
 const { projectsreso } = require("../controller/per_controller");
 const { json } = require("body-parser");
 const { stringify } = require("querystring");
+const { use } = require("express/lib/application");
 const Projects = mongoose.model('Project');
 const Employee = mongoose.model('Employee');
+const User = mongoose.model('User')
 const ProjectResource = mongoose.model('Project_Resource');
 const File = mongoose.model('File');
 
@@ -75,9 +79,24 @@ async function insertEmployee(req, res) {
     employee.reporting_manager = req.body.reporting_manager
     employee.save((err, data) => {
         if (err) throw err
+        res.send(data);
         console.log(data);
     });
 }
+///
+async function insertUser(req, res) {
+    const { email, password, role } = req.body
+    const user = new User()
+    user.email = email;
+    user.password = await bcrypt.hash(password, 10);
+    user.role = role;
+    user.save((err, data) => {
+        if (err) throw err
+        console.log(data)
+    })
+
+}
+
 //inserting Project details
 async function insertProject(req, res) {
     const project = new Projects();
@@ -98,6 +117,7 @@ async function insertProject(req, res) {
     project.project_budget = req.body.project_budget
     project.save((err, data) => {
         if (err) throw err
+        res.send(data);
         console.log(data);
     })
 }
@@ -129,8 +149,10 @@ async function insertResource(req, res) {
 
     projectreso.save((err, data) => {
         if (err) throw err
+        res.send(data);
         console.log(data)
     })
+
 }
 
 //inserting file 
@@ -148,6 +170,7 @@ async function insertFile(req, res) {
     file.employeeId = employee.employee_id;
     file.save((err, data) => {
         if (err) throw err
+        res.send(data)
         console.log(data);
     })
 
@@ -190,7 +213,10 @@ async function updateByempId(req, res) {
     console.log(req.body._id);
     Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         console.log(doc)
-        if (!err) { console.log("Updated Successfully") }
+        if (!err) {
+            console.log("Updated Successfully")
+            res.send(doc)
+        }
         else {
             console.log("err" + err)
         }
@@ -205,6 +231,7 @@ async function updateByproId(req, res) {
     Projects.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
             console.log(doc)
+            res.send(doc)
         }
         else {
             console.log("err" + err)
@@ -219,6 +246,7 @@ async function updateByresId(req, res) {
     ProjectResource.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, doc) => {
         if (!err) {
             console.log(doc)
+            res.send(doc)
         }
         else {
             throw err
@@ -242,6 +270,12 @@ async function getOnePro(req, res) {
     res.json(project)
 
 }
+async function find(req, res) {
+
+    const user = await User.findOne({ "email": req.body.email }).lean();
+    res.json(user)
+
+}
 
 //finding single Resource and rendering for update
 async function getOneReso(req, res) {
@@ -257,7 +291,10 @@ async function deleteByproId(req, res) {
     //here deleting 
     try {
         const project = await Projects.findByIdAndRemove(req.params.id);
-        if (project) console.log("Deleted!!")
+        if (project) {
+            res.send(project)
+            console.log("Deleted!!")
+        }
     } catch (err) {
         console.log(err);
     }
@@ -270,6 +307,7 @@ async function deleteByEmpId(req, res) {
     try {
         const project = await Employee.findByIdAndRemove(req.params.id);
         if (project) {
+            res.send(project);
             console.log("deleted!!")
         }
     } catch (err) {
@@ -282,7 +320,10 @@ async function deleteByresoId(req, res) {
     //here deleting 
     try {
         const project = await ProjectResource.findByIdAndRemove(req.params.id);
-        if (project) console.log("deleted!!")
+        if (project) {
+            res.send(project);
+            console.log("deleted!!")
+        }
     } catch (err) {
         console.log(err);
     }
@@ -315,9 +356,6 @@ async function readOneFile(req, res) {
     //finding data in mongoodb 
     console.log(req.params.id)
     const file = await File.findOne({ "_id": req.params.id }).lean();
-    // console.log(projects.fileName);
-    // console.log(projects.filePath);
-
     console.log(file)
     //here reading data after find out 
     xlsxFile(file.filePath).then((file) => {
@@ -333,7 +371,6 @@ async function giveMoreInfo(req, res) {
     console.log(req.params.id);
     const details = await ProjectResource.find({ "projectID": req.params.id }).lean();
     console.log(details)
-
     res.json(details)
 }
 
@@ -421,5 +458,5 @@ module.exports = {
     listallProjects,
     listallEmployee,
     deleteByproId,
-    deleteByEmpId
+    deleteByEmpId, insertUser, find
 }

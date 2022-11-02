@@ -65,12 +65,11 @@ const EmployeesList = (props) => {
     const response = await postemployee(uploadData)
     console.log(response.data);
     if (response.data) {
+      alert("Inserted Employee")
       loadEmployeeData();
       props.history.push("/employees");
-
-      alert("1");
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
 
@@ -86,11 +85,11 @@ const EmployeesList = (props) => {
     const response = await updateemployee(id, uploadData)
     console.log(response.data);
     if (response.data) {
-      // setData(response.data)
+      alert("Updated Employee")
       loadEmployeeData();
-      alert("1");
+      props.history.push("/employees");
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
@@ -98,12 +97,12 @@ const EmployeesList = (props) => {
     console.log(id);
     const response = await deleteemployee(id);
     if (response.data) {
-      //alert("deleted successfully!! ");
+      alert("deleted successfully!! ");
       loadEmployeeData();
       props.history.push("/employees");
 
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
 
@@ -117,7 +116,7 @@ const EmployeesList = (props) => {
       setShow(true);
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }
@@ -129,7 +128,7 @@ const EmployeesList = (props) => {
       setShows(true);
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!! ");
       // setData(null)
     }
   }

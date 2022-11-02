@@ -7,6 +7,7 @@ import "./projectsList.scss";
 import { deleteproject, getproject, getsingleproject, postproject, updateproject, } from "../../actions/User";
 import ReuseModal from "../Modal";
 import ReuseView from "../View";
+import { Redirect } from "react-router-dom";
 
 const ProjectsList = (props) => {
 
@@ -60,16 +61,17 @@ const ProjectsList = (props) => {
       uploadData[i[0]] = i[1]
     }
     console.log(uploadData, "--");
-    const response = await postproject(uploadData)
-    console.log(response.data);
-    if (response.data) {
-      // setData(response.data)
-      loadProjectData();
-      alert("1");
-    } else {
-      alert("2");
-      // setData(null)
-    }
+    await postproject(uploadData).then((res, err) => {
+      if (!err) {
+        alert("success")
+        loadProjectData();
+        props.history.push('/projects')
+      } else {
+        throw err
+      }
+
+    })
+   
 
   }
 
@@ -77,14 +79,14 @@ const ProjectsList = (props) => {
     console.log(data, "--");
     let uploadData = {};
     for (let i of data) {
-        uploadData[i[0]] = i[1]
+      uploadData[i[0]] = i[1]
     }
     const response = await updateproject(onedata._id, uploadData)
     console.log(response.data);
     if (response.data) {
-      // setData(response.data)
+      alert("Updated successfully!! ");
       loadProjectData();
-      alert("1");
+      props.history.push("/projects")
     } else {
       alert("2");
       // setData(null)
@@ -92,17 +94,15 @@ const ProjectsList = (props) => {
   }
   const deleteData = async (id, view) => {
     console.log(id);
-    const response = await deleteproject(id);
-    if (view) {
-
-    }
-    if (response.data) {
-      //alert("deleted successfully!! ");
-      loadProjectData();
-    } else {
-      alert("2");
-      // setData(null)
-    }
+    await deleteproject(id).then((res, err) => {
+      if (!err) {
+        alert("deleted successfully!! ");
+        loadProjectData();
+        props.history.push("/projects")
+      } else {
+        throw err
+      }
+    });
 
   }
 
@@ -114,7 +114,7 @@ const ProjectsList = (props) => {
       setShow(true);
       console.log(response.data);
     } else {
-      alert("2");
+      alert("Error!!!");
       // setData(null)
     }
   }
@@ -192,13 +192,13 @@ const ProjectsList = (props) => {
     />
 
     <ReuseModal
-    titel="Update Project"
-     show={show}
+      titel="Update Project"
+      show={show}
       data={data}
       closeModal={closeModal}
       formArr={formArr}
       inputvalue={onedata}
-      updateData={(data,id) => { updateData(data , id) }} />
+      updateData={(data, id) => { updateData(data, id) }} />
     <ReuseView
       titel="project Details"
       shows={shows} data={onedata}
