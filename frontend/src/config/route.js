@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 const RouteConfig = (props) => {
   const { isLogin, onlogOut } = props;
-
+  console.log(isLogin);
   useEffect(() => {
     if (!isLogin) {
     }
@@ -16,7 +16,7 @@ const RouteConfig = (props) => {
   return (
     <>
       <Router hashType="slash">
-        <Switch>
+        <Switch> 
           {routeNavigators.map((prop, key) => {
             return (
               <PrivateRoute
@@ -30,6 +30,7 @@ const RouteConfig = (props) => {
               />
             );
           })}
+
         </Switch>
       </Router>
     </>

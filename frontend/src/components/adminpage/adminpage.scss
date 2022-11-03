@@ -1,0 +1,45 @@
+.form {
+    text-align: center;
+    padding:20px 30px 30px 220px;
+}
+.header{
+    margin-left: 200px;
+    text-align: center;
+}
+.green{
+    color: #191a1d;
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: green;
+}
+.sbutton{
+    font-size: 18px;
+    margin-top: 40px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background:  radial-gradient(100% 100% at 100% 0%, #89e5ff 0%, #5468ff);
+    border-radius: 50px;
+    color: #fff;
+    height: 40px;
+    width: 100px;
+    text-shadow: 0 1px 0 rgb(0 0 0 /40%);
+}
+.input-group {
+    margin-top: 20px;
+    padding: 0 30px;
+}
+label {
+    color: #999;
+    font-size: 15px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 30px;
+    top: -10px;
+    padding: 1px;
+    transition: 0.2s ease all;
+    -moz-transition: 00.2s ease all;
+    -webkit-transition: 00.2s ease all;
+}

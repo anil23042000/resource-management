@@ -142,11 +142,18 @@ const EmployeesList = (props) => {
     { header: "Employee Phone", field: "employee_phone" },
     { header: "Actions", field: "Actions" }
   ];
-
+  const patterns = [
+    {
+      value: /^[A-Z0-9._%+-]+@[accionlabs]+\.[A-Z]{2,}$/i,
+      message: "Invalid email address",
+    }
+  ]
   const formArr = [
     { label: "First Name", name: "first_name", type: "text" },
     { label: "Last Name", name: "last_name", type: "text" },
-    { label: "Email", name: "email", type: "email" },
+    {
+      label: "Email", name: "email", type: "email"
+    },
     { label: "Employee Role", name: "employee_role", type: "text" },
     { label: "Employee Phone", name: "employee_phone", type: "text" },
     { label: "Employee Dob", name: "employee_dob", type: "date" },

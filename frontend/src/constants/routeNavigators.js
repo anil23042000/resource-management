@@ -3,6 +3,8 @@ import ProjectsComponent from "../containers/Projects";
 import ProjectResourceComponent from "../containers/ProjectResource";
 import EmployeesComponent from "../containers/Employees";
 import MonthlybillComponent from "../containers/Monthlybill";
+import adminPage from "../components/adminpage";
+import Admin from "../containers/Admin";
 
 
 const routeNavigators = [
@@ -17,6 +19,13 @@ const routeNavigators = [
     component: LoginComponent,
     isPublic: true,
   },
+  {
+    name: "Admin",
+    path: "/admin",
+    component: Admin,
+    isPublic: false,
+  },
+
   {
     name: "Projects",
     path: "/projects",
@@ -43,5 +52,4 @@ const routeNavigators = [
   }
 
 ];
-
 export default routeNavigators;

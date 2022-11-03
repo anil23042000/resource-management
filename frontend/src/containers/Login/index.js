@@ -17,7 +17,7 @@ const Login = (props) => {
       onlogin(
         userDetails,
         () => {
-          history.push("/projects");
+          history.push("/admin");
           console.log(userDetails.email);
         },
         () => {

@@ -8,15 +8,11 @@ import { BsFillPersonPlusFill, BsSearch } from "react-icons/bs";
 
 import "./search.scss"
 import ReuseModal from "../Modal";
-import ReuseTable from "../ReuseableTable";
 
 const Search = (props) => {
     const { titel, formArr, postLink, value, data,search } = props;
     console.log(data);
     const [show, setShow] = useState(false);
-    const [query, setQuery] = useState("");
-    const [sdata , setSdata] = useState();
-    console.log(query)
     const showModal = () => {
         setShow(true);
     }

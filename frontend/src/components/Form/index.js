@@ -1,11 +1,16 @@
-import { React, useForm, useState } from "react";
+import { React, useEffect, useForm, useState } from "react";
 import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, FormLabel, InputGroup } from "react-bootstrap";
 import "./form.scss";
 import Form from 'react-bootstrap/Form';
 import { Redirect, useHistory } from "react-router-dom";
+import ms from 'ms';
+import moment from "moment";
+import { Validator } from "react";
 const ReuseForm = (props) => {
     const { formArr, postLink, data } = props;
+    const [mindate, setMindate] = useState(null);
     const [file, setFile] = useState({ preview: '', data: '' })
+    console.log(mindate)
     console.log(file)
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -16,28 +21,52 @@ const ReuseForm = (props) => {
         }
         console.log(formData)
         console.log(formData.data)
+        let uploadData = {};
+        for (let i of formData) {
+            uploadData[i[0]] = i[1]
+        }
+        if (uploadData.email) {
+            if (uploadData.email.includes("accionlabs.com")) {
+                if (uploadData.employee_phone.match('[0-9]{10}')&&uploadData.employee_phone.length==10) {
+                    postLink(formData);
+                    props.closeModal()
+                } else {
+                    alert('Please provide valid phone number')
+                }
 
-        postLink(formData);
-        props.closeModal()
-
+            } else {
+                alert("only Accion Id accepted")
+            }
+        } else {
+            postLink(formData);
+            props.closeModal()
+        }
     };
     const handleFileChange = (e) => {
-        const file = {
-            preview: URL.createObjectURL(e.target.files[0]),
-            data: e.target.files[0],
+        e.preventDefault();
+        console.log(e.target.value)
+        const min_date = new Date(+new Date(e.target.value) );
+        setMindate(moment(min_date).format('YYYY-MM-DD'))
+        if (e.target.files[0]) {
+            const file = {
+                preview: URL.createObjectURL(e.target.files[0]),
+                data: e.target.files[0],
+            }
+            setFile(file)
         }
-        console.log(file)
-        setFile(file)
-    }
-    const submitData=(e)=>{
-        e.preventDefault()
-        props.history.push("/projects")
+        if ( moment(e.target.value, "MM-DD-YYYY").isValid()) {
+            console.log('Valid Date :)')
+            
+          } else {
+            console.log('Enter Valid Date!')
+          }
+
     }
 
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                {formArr.map(({ name, type, label, data }) => {
+                {formArr.map(({ name, type, label, data, pattern }) => {
                     console.log(data)
                     if (data) return (
 
@@ -55,13 +84,31 @@ const ReuseForm = (props) => {
                             <br />
                         </div>
                     )
+                    if (name == "projectEndDate") return (
+                        <div className="input-group">
+                            <input
+                                type={"date"}
+                                min={mindate}
+                                name={name}
+                                id={name}
+                                onChange={handleFileChange}
+                                required
+
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>{label}</label>
+                        </div>
+                    )
                     return (
+
                         <div className="input-group">
                             <input
                                 type={type}
                                 name={name}
                                 id={name}
                                 onChange={handleFileChange}
+                                required
 
                             />
                             <span className="highlight"></span>
@@ -71,7 +118,7 @@ const ReuseForm = (props) => {
                     )
                 }
                 )}
-                <Button  className="sbutton" variant="primary" type="submit">
+                <Button className="sbutton" variant="primary" type="submit">
                     Submitt
                 </Button>
             </Form>
