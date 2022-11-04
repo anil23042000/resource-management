@@ -149,20 +149,18 @@ const EmployeesList = (props) => {
     }
   ]
   const formArr = [
-    { label: "First Name", name: "first_name", type: "text" },
-    { label: "Last Name", name: "last_name", type: "text" },
-    {
-      label: "Email", name: "email", type: "email"
-    },
-    { label: "Employee Role", name: "employee_role", type: "text" },
-    { label: "Employee Phone", name: "employee_phone", type: "text" },
-    { label: "Employee Dob", name: "employee_dob", type: "date" },
-    { label: "Current Org Experience", name: "current_org_experience", type: "text" },
-    { label: "Previous Org Experience", name: "previous_org_experience", type: "text" },
-    { label: "Current Ctc", name: "current_ctc", type: "text" },
-    { label: "Primary Skills", name: "primary_skills", type: "text" },
-    { label: "Secondary Skills", name: "secondary_skills", type: "text" },
-    { label: "Reporting Manager", name: "reporting_manager", type: "text" }
+    { label: "First Name", name: "first_name", type: "text", required: true },
+    { label: "Last Name", name: "last_name", type: "text", required: true },
+    { label: "Email", name: "email", type: "email", required: true },
+    { label: "Employee Role", name: "employee_role", type: "text", required: true },
+    { label: "Employee Phone", name: "employee_phone", type: "text", required: true },
+    { label: "Employee Dob", name: "employee_dob", type: "date", required: true },
+    { label: "Current Org Experience", name: "current_org_experience", type: "text", required: true },
+    { label: "Previous Org Experience", name: "previous_org_experience", type: "text", required: true },
+    { label: "Current Ctc", name: "current_ctc", type: "text", required: true },
+    { label: "Primary Skills", name: "primary_skills", type: "text", required: true },
+    { label: "Secondary Skills", name: "secondary_skills", type: "text", required: true },
+    { label: "Reporting Manager", name: "reporting_manager", type: "text", required: true }
   ]
   const formViewArr = [
     { label: "First Name", name: "first_name", type: "text" },

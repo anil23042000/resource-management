@@ -66,13 +66,14 @@ const ReuseForm = (props) => {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                {formArr.map(({ name, type, label, data, pattern }) => {
+                {formArr.map(({ name, type, label, data, pattern, required }) => {
                     console.log(data)
+                    console.log(required)
                     if (data) return (
 
                         <div className="input-group">
-                            <select name={name} id={name}>
-                                <option>{label}</option>
+                            <select name={name} id={name}  required={required}>
+                                <option  required={required}>{label}</option>
                                 {data.value.map((eachData) => {
                                     return (
                                         <>
@@ -92,7 +93,23 @@ const ReuseForm = (props) => {
                                 name={name}
                                 id={name}
                                 onChange={handleFileChange}
-                                required
+                                required={required}
+
+                            />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>{label}</label>
+                        </div>
+                    )
+                    if (name == "employee_dob") return (
+                        <div className="input-group">
+                            <input
+                                type={"date"}
+                                max="2021-12-31"
+                                name={name}
+                                id={name}
+                                onChange={handleFileChange}
+                                required={required}
 
                             />
                             <span className="highlight"></span>
@@ -108,7 +125,7 @@ const ReuseForm = (props) => {
                                 name={name}
                                 id={name}
                                 onChange={handleFileChange}
-                                required
+                                required={required}
 
                             />
                             <span className="highlight"></span>

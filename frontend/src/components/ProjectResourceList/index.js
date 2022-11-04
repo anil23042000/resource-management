@@ -193,13 +193,13 @@ const ProjectResourceList = (props) => {
   ]
 
   const formArr = [
-    { label: "Project Name", name: "projectName", data: { value: prodata } },
-    { label: "Employee Name", name: "employeeName", data: { value } },
-    { label: "Role", name: "role", type: "text", data: { value: role } },
-    { label: "Status", name: "status", type: "text" },
-    { label: "Start Date", name: "projectStartDate", type: "date" },
+    { label: "Project Name", name: "projectName", data: { value: prodata },required: true },
+    { label: "Employee Name", name: "employeeName", data: { value }, required: true },
+    { label: "Role", name: "role", type: "text", data: { value: role }, required: true },
+    { label: "Status", name: "status", type: "text", required: true },
+    { label: "Start Date", name: "projectStartDate", type: "date", required: true },
     { label: "End Date", name: "projectEndDate", type: "date" },
-    { label: "Billable", name: "billable", type: "text" },
+    { label: "Billable", name: "billable", type: "text", required: true },
   ]
 
 

@@ -71,7 +71,7 @@ const ProjectsList = (props) => {
       }
 
     })
-   
+
 
   }
 
@@ -144,18 +144,18 @@ const ProjectsList = (props) => {
   ];
 
   const formArr = [
-    { label: "Project Name", name: "project_name", type: "text" },
-    { label: "Client Name", name: "client_name", type: "text" },
-    { label: "Start Date", name: "projectStartDate", type: "date" },
-    { label: "End Date", name: "projectEndDate", type: "date" },
-    { label: "Delivery Manager", name: "delivery_manager", type: "text" },
-    { label: "Engagement Director", name: "engagement_director", type: "text" },
-    { label: "Delivery Director", name: "delivery_director", type: "text" },
-    { label: "Project Manager", name: "project_manager", type: "text" },
-    { label: "Bu", name: "bu", type: "text" },
-    { label: "Project Type", name: "project_type", type: "text" },
-    { label: "Status", name: "status", type: "text" },
-    { label: "Reasonfor Close", name: "reasonfor_close", type: "text" }
+    { label: "Project Name", name: "project_name", type: "text", required: true },
+    { label: "Client Name", name: "client_name", type: "text", required: true },
+    { label: "Start Date", name: "projectStartDate", type: "date", required: true },
+    { label: "End Date", name: "projectEndDate", type: "date", required: false },
+    { label: "Delivery Manager", name: "delivery_manager", type: "text", required: true },
+    { label: "Engagement Director", name: "engagement_director", type: "text", required: true },
+    { label: "Delivery Director", name: "delivery_director", type: "text", required: true },
+    { label: "Project Manager", name: "project_manager", type: "text", required: true },
+    { label: "Bu", name: "bu", type: "text", required: true },
+    { label: "Project Type", name: "project_type", type: "text", required: true },
+    { label: "Status", name: "status", type: "text", required: true },
+    { label: "Reasonfor Close", name: "reasonfor_close", type: "text", required: false }
   ]
   const formViewArr = [
     { label: "Project Name", name: "project_name", type: "text" },

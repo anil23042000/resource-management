@@ -155,8 +155,8 @@ const MonthlybillList = (props) => {
     { header: "Actions", field: "Actions" }
   ];
   const formArr = [
-    { label: "Employee Name", name: "employeeName", type: "text", data: { value } },
-    { label: "Please Upload Monthly Bill", name: "file", type: "file" },
+    { label: "Employee Name", name: "employeeName", type: "text", data: { value }, required: true },
+    { label: "Please Upload Monthly Bill", name: "file", type: "file", required: true },
   ]
   return (<>
     <Header name="Monthly bill List" />

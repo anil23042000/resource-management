@@ -50,7 +50,7 @@ const Sidebar = (props) => {
               <div className="closemenu" onClick={menuIconClick}>
                 {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
               </div>
-              <p>{menuCollapse ? "Accionlabs" : "Accionlabs"}</p>
+              <p>{menuCollapse ? "Accion" : "Accionlabs"}</p>
             </div>
           </SidebarHeader>
           <SidebarContent>

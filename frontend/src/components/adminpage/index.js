@@ -21,8 +21,6 @@ const AdminPage = (props) => {
             alert("you don't have permission")
         }
     }
-    
-
     return <>
         <div className="header">
             <Header name="Admin" />

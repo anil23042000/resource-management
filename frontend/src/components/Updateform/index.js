@@ -19,6 +19,7 @@ const ReuseUpdateForm = (props) => {
         console.log(formData)
         console.log(formData.data)
         updateData(formData, inputvalue._id);
+        props.closeModal()
     };
     const handleFileChange = (e) => {
         const file = {

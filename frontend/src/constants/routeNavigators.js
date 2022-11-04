@@ -5,6 +5,7 @@ import EmployeesComponent from "../containers/Employees";
 import MonthlybillComponent from "../containers/Monthlybill";
 import adminPage from "../components/adminpage";
 import Admin from "../containers/Admin";
+import roles from "./roles";
 
 
 const routeNavigators = [
@@ -24,6 +25,13 @@ const routeNavigators = [
     path: "/admin",
     component: Admin,
     isPublic: false,
+    permission: [
+      roles.SUPER_ADMIN,
+      roles.ADMIN,
+      roles.DeliveryDirector,
+      roles.DeliveryManager,
+      roles.MANAGER
+    ],
   },
 
   {
@@ -31,24 +39,55 @@ const routeNavigators = [
     path: "/projects",
     component: ProjectsComponent,
     isPublic: false,
+    permission: [
+      roles.ADMIN,
+      roles.SUPER_ADMIN,
+      roles.DeliveryDirector,
+      roles.DeliveryManager,
+      roles.MANAGER
+    ]
   },
   {
     name: "ProjectResource",
     path: "/projectResource",
     component: ProjectResourceComponent,
     isPublic: false,
+    permission: [
+      roles.ADMIN,
+      roles.SUPER_ADMIN,
+      roles.DeliveryDirector,
+      roles.DeliveryManager,
+      roles.MANAGER
+    ]
   },
   {
     name: "Employees",
     path: "/employees",
     component: EmployeesComponent,
     isPublic: false,
+    permission: [
+      roles.ADMIN,
+      roles.SUPER_ADMIN,
+      roles.User,
+      roles.DeliveryDirector,
+      roles.DeliveryManager,
+      roles.MANAGER
+    ]
   },
   {
     name: "Monthlybill",
     path: "/monthlybill",
     component: MonthlybillComponent,
     isPublic: false,
+    permission: [
+      roles.ADMIN,
+      roles.SUPER_ADMIN,
+      roles.User,
+      roles.DeliveryDirector,
+      roles.DeliveryManager,
+      roles.MANAGER,
+      roles.AccountsTeam
+    ]
   }
 
 ];

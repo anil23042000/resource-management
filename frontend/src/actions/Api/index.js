@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const baseURL = "http://localhost:3002/api/";
-const baseURL = "https://intranet.accionlabs.com/resourceManagementAPI/api/";
+const baseURL = "http://localhost:3002/api/";
+//const baseURL = "https://intranet.accionlabs.com/resourceManagementAPI/api/";
 
 const customAxios = (dynamicBaseURL) => {
     const axiosInstance = axios.create({
